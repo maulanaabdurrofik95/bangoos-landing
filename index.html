@@ -8,7 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link id="theme-css" rel="stylesheet" href="css/theme-clay.css">
+<script>(function(){try{var t=localStorage.getItem('bangoos-theme');if(t==='glass'||t==='liquid'){var l=document.getElementById('theme-css');if(l)l.href='css/theme-'+t+'.css';document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <script src="js/three-bg.js" defer></script>
 </head>
@@ -24,6 +25,11 @@
       <a href="#source">Source Code</a>
       <a href="#kontak">Kontak</a>
     </nav>
+    <div class="theme-sw" role="group" aria-label="Pilih tampilan">
+      <button type="button" data-t="glass" aria-pressed="false">Kaca</button>
+      <button type="button" data-t="clay" aria-pressed="true" class="on">Clay</button>
+      <button type="button" data-t="liquid" aria-pressed="false">Cair</button>
+    </div>
     <a class="nav-cta" href="https://wa.me/6285287411177?text=Halo%20BangOos,%20saya%20mau%20tanya%20aplikasi">Chat WA</a>
   </div>
 </header>
@@ -258,6 +264,31 @@
       document.getElementById('st-count').textContent = '–';
       document.getElementById('st-years').textContent = '–';
     });
+
+  /* pemilih tema: Kaca / Clay / Cair — simpan localStorage */
+  (function () {
+    var KEY = 'bangoos-theme';
+    var link = document.getElementById('theme-css');
+    var btns = document.querySelectorAll('.theme-sw button');
+    function valid(t) { return t === 'glass' || t === 'clay' || t === 'liquid'; }
+    function apply(t) {
+      if (!valid(t)) t = 'clay';
+      if (link) link.setAttribute('href', 'css/theme-' + t + '.css');
+      document.documentElement.setAttribute('data-theme', t);
+      btns.forEach(function (b) {
+        var on = b.getAttribute('data-t') === t;
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        b.classList.toggle('on', on);
+      });
+      try { localStorage.setItem(KEY, t); } catch (e) {}
+    }
+    var init = 'clay';
+    try { init = localStorage.getItem(KEY) || 'clay'; } catch (e) {}
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { apply(b.getAttribute('data-t')); });
+    });
+    apply(init);
+  })();
 })();
 </script>
 </body>
