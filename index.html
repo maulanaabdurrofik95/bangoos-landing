@@ -2,82 +2,258 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Maulana Abdur Rofik — Builder Web & IoT</title>
-<meta name="description" content="Portofolio + source code: kasir UMKM, blog 3D, absensi RFID, KYT visual. SMK TI Muhammadiyah Cikampek.">
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<style>
-body{font-family:'Inter',system-ui,sans-serif;background:#070b16;color:#e5e7eb}
-h1,h2,h3,.grotesk{font-family:'Space Grotesk',sans-serif}
-.glass{background:rgba(255,255,255,.05);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:20px}
-.glass:hover{border-color:rgba(34,211,238,.5);box-shadow:0 0 24px rgba(34,211,238,.15)}
-.btn3d{background:linear-gradient(180deg,#22d3ee,#0ea5e9);box-shadow:0 4px 0 #0c4a6e,0 8px 20px rgba(34,211,238,.3);border-radius:14px;transition:.15s}
-.btn3d:active{transform:translateY(3px);box-shadow:0 1px 0 #0c4a6e}
-.hero-bg{background:url('img/hero.png') center/cover no-repeat}
-.tilt{transition:transform .2s}
-</style>
+<meta name="description" content="Guru SMK TKJ Cikampek yang bangun aplikasi beneran: kasir UMKM, blog 3D, absensi RFID. Live dan source-nya bisa dibeli.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="js/three-bg.js" defer></script>
 </head>
 <body>
-<header class="max-w-5xl mx-auto px-5 pt-6 flex justify-between items-center">
-<div class="grotesk font-bold text-lg">maulanaabdurrofik<span class="text-cyan-400">.id</span></div>
-<nav class="flex gap-4 text-sm text-slate-300">
-<a href="#projek" class="hover:text-cyan-300">Projek</a>
-<a href="#source" class="hover:text-cyan-300">Source Code</a>
-<a href="#kontak" class="hover:text-cyan-300">Kontak</a>
-</nav>
+
+<!-- Decide/Learn surface: hero sinematik → bukti (stats) → showcase → beli → kontak -->
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#top">maulanaabdurrofik<b>.id</b></a>
+    <nav class="nav-links" aria-label="Navigasi">
+      <a href="#projek">Projek</a>
+      <a href="#source">Source Code</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+    <a class="nav-cta" href="https://wa.me/6285287411177?text=Halo%20BangOos,%20saya%20mau%20tanya%20aplikasi">Chat WA</a>
+  </div>
 </header>
 
-<section class="hero-bg">
-<div class="max-w-5xl mx-auto px-5 py-20 md:py-28">
-<div class="glass p-8 md:p-12 max-w-2xl">
-<p class="text-cyan-300 text-sm font-semibold tracking-widest">BUILDER WEB & IOT — CIKAMPEK</p>
-<h1 class="text-4xl md:text-5xl font-bold mt-3 leading-tight">Maulana Abdur Rofik</h1>
-<p class="text-slate-300 mt-4">Guru SMK TKJ yang bangun aplikasi beneran: kasir warung, absensi RFID 2200 siswa, blog 3D, KYT visual. Semua live, semua bisa dibeli source-nya.</p>
-<div class="flex gap-3 mt-6 flex-wrap">
-<a href="#projek" class="btn3d px-6 py-3 font-bold text-slate-900">Lihat Projek</a>
-<a href="#source" class="glass px-6 py-3 font-semibold hover:border-cyan-400">Beli Source Code</a>
-</div>
-</div>
-</div>
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <canvas id="bg3d" aria-hidden="true"></canvas>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <p class="kicker">Builder Web &amp; IoT — Cikampek</p>
+    <h1>Maulana Abdur Rofik <span class="thin">bangun aplikasi yang dipakai beneran.</span></h1>
+    <p class="lede">Guru SMK TKJ yang nulis kode tiap malam: <strong>kasir warung offline-first</strong>, <strong>absensi RFID 2.200 siswa</strong>, <strong>blog 3D</strong>, <strong>KYT visual</strong>. Semua live, semua bisa dicoba — dan source-nya bisa dibeli.</p>
+    <div class="cta-row">
+      <a href="#projek" class="btn btn-primary">Lihat projek live
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 8h9M8 4l4 4-4 4"/></svg>
+      </a>
+      <a href="#source" class="btn btn-ghost">Beli source code</a>
+    </div>
+    <div class="hero-meta">
+      <span><b>STACK</b>&nbsp; Node · SQLite · Three.js</span>
+      <span><b>BASE</b>&nbsp; SMK TI Muhammadiyah Cikampek</span>
+      <span><b>STATUS</b>&nbsp; <span id="api-dot">●</span> <span id="api-state">mengecek api…</span></span>
+    </div>
+  </div>
+  <span class="scroll-hint" aria-hidden="true">SCROLL</span>
 </section>
 
-<section id="projek" class="max-w-5xl mx-auto px-5 py-14">
-<h2 class="text-2xl font-bold">Projek <span class="text-cyan-400">Live</span></h2>
-<div id="grid" class="grid md:grid-cols-2 gap-5 mt-6"><p class="text-slate-400">Memuat...</p></div>
+<!-- STATISTIK REAL dari /api/projects -->
+<section class="stats" aria-label="Statistik projek">
+  <div class="wrap stats-in">
+    <div class="stat rv"><span class="n" id="st-count">–</span><span class="l">projek live<br>di API</span></div>
+    <div class="stat rv"><span class="n" id="st-years">–</span><span class="l">rentang tahun<br>dibangun</span></div>
+    <div class="stat rv"><span class="n">100<em>%</em></span><span class="l">source + tutorial<br>+ update</span></div>
+  </div>
 </section>
 
-<section id="source" class="max-w-5xl mx-auto px-5 py-14">
-<h2 class="text-2xl font-bold">Source Code <span class="text-cyan-400">Dijual</span></h2>
-<p class="text-slate-400 mt-2">Full source + tutorial pasang + update. Chat dulu buat harga & demo.</p>
-<div class="grid md:grid-cols-3 gap-5 mt-6">
-<div class="glass tilt p-6"><h3 class="font-bold">Kasir UMKM</h3><p class="text-sm text-slate-400 mt-2">POS offline-first + struk 58mm + stok otomatis.</p><a href="#kontak" class="text-cyan-300 text-sm font-semibold mt-3 inline-block">Tanya harga →</a></div>
-<div class="glass tilt p-6"><h3 class="font-bold">Absensi RFID</h3><p class="text-sm text-slate-400 mt-2">Tap kartu + WA ortu otomatis + rekap + surat.</p><a href="#kontak" class="text-cyan-300 text-sm font-semibold mt-3 inline-block">Tanya harga →</a></div>
-<div class="glass tilt p-6"><h3 class="font-bold">Blog 3D</h3><p class="text-sm text-slate-400 mt-2">Blog mobile 3D + admin glass + komentar.</p><a href="#kontak" class="text-cyan-300 text-sm font-semibold mt-3 inline-block">Tanya harga →</a></div>
-</div>
+<!-- SHOWCASE -->
+<section id="projek" class="sec">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="sec-kick">01 — Showcase</p>
+      <h2>Yang sudah <span class="a">live</span>, bukan mockup.</h2>
+      <p class="sec-sub">Diambil langsung dari API produksi. Klik Live buat coba, GitHub buat intip kode.</p>
+    </div>
+    <div id="grid" class="grid" aria-live="polite">
+      <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    </div>
+    <p class="grid-note mono" id="grid-note"></p>
+  </div>
 </section>
 
-<section id="kontak" class="max-w-5xl mx-auto px-5 py-14">
-<div class="glass p-8 text-center">
-<h2 class="text-2xl font-bold">Ngobrol Dulu, Gratis.</h2>
-<p class="text-slate-400 mt-2">Butuh aplikasi buat sekolah / warung / usaha? Ceritain kebutuhanmu.</p>
-<a href="https://wa.me/6285287411177?text=Halo%20BangOos,%20saya%20mau%20tanya%20aplikasi" class="btn3d inline-block px-8 py-3 font-bold text-slate-900 mt-5">Chat WhatsApp</a>
-<p class="text-xs text-slate-500 mt-4">IG @maulanaabdurrofik95 · YT @bangoosyoutube</p>
-</div>
+<!-- SOURCE DIJUAL : 1 unggulan + 2 pendukung, bukan 3 kartu kembar -->
+<section id="source" class="sec">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="sec-kick">02 — Source dijual</p>
+      <h2>Beli sekali, <span class="a">pakai selamanya.</span></h2>
+      <p class="sec-sub">Full source + tutorial pasang + update. Chat dulu buat harga &amp; demo — gratis, tanpa komitmen.</p>
+    </div>
+
+    <article class="feat rv">
+      <div>
+        <span class="feat-tag">Paling laris</span>
+        <h3>Kasir UMKM offline-first</h3>
+        <p>POS web buat warung: kasir secepat ketik, stok berkurang otomatis, struk thermal 58mm, laporan omzet + laba harian. Jalan tanpa internet, data tersimpan lokal.</p>
+        <ul>
+          <li>Kasir + barcode + diskon + struk 58mm</li>
+          <li>Stok otomatis + opname + pengingat restock</li>
+          <li>Laporan omzet &amp; laba per hari / bulan</li>
+        </ul>
+      </div>
+      <div class="feat-side">
+        <p class="price">HARGA / DEMO VIA CHAT</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://wa.me/6285287411177?text=Halo%20BangOos,%20saya%20mau%20demo%20Kasir%20UMKM">Minta demo kasir</a>
+          <a class="btn btn-ghost" href="https://bangoos-kasir.vercel.app" target="_blank" rel="noopener">Coba live demo</a>
+        </div>
+      </div>
+    </article>
+
+    <div class="support">
+      <div class="sup rv">
+        <div><span class="sup-n">SOURCE 02</span><h4>Absensi RFID + WA ortu</h4><p>Tap kartu, rekap otomatis, surat izin, notif WA. Skala ribuan siswa.</p></div>
+        <a href="https://wa.me/6285287411177?text=Halo%20BangOos,%20saya%20mau%20tanya%20Absensi%20RFID">Tanya harga</a>
+      </div>
+      <div class="sup rv">
+        <div><span class="sup-n">SOURCE 03</span><h4>Blog 3D + admin glass</h4><p>Blog mobile-first rasa 3D: partikel neon, kartu tilt, panel admin kaca.</p></div>
+        <a href="https://wa.me/6285287411177?text=Halo%20BangOos,%20saya%20mau%20tanya%20Blog%203D">Tanya harga</a>
+      </div>
+    </div>
+  </div>
 </section>
 
-<footer class="text-center text-xs text-slate-500 pb-8">© 2026 maulanaabdurrofik.id</footer>
+<!-- KONTAK -->
+<section id="kontak" class="sec">
+  <div class="wrap">
+    <div class="contact rv">
+      <div class="contact-l">
+        <p class="sec-kick">03 — Kontak</p>
+        <h2>Ngobrol dulu, <span class="a">gratis.</span></h2>
+        <p>Butuh aplikasi buat sekolah, warung, atau usaha? Ceritain kebutuhanmu — dibalas manusia, bukan bot.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://wa.me/6285287411177?text=Halo%20BangOos,%20saya%20mau%20tanya%20aplikasi">Chat WhatsApp</a>
+        </div>
+        <div class="soc">
+          <a href="https://instagram.com/maulanaabdurrofik95" target="_blank" rel="noopener">IG · @maulanaabdurrofik95</a>
+          <a href="https://youtube.com/@bangoosyoutube" target="_blank" rel="noopener">YT · @bangoosyoutube</a>
+          <a href="https://github.com/maulanaabdurrofik95" target="_blank" rel="noopener">GH · bangoos</a>
+        </div>
+      </div>
+      <div class="contact-r">
+        <div class="c-row"><span class="k">WhatsApp</span><a href="https://wa.me/6285287411177">+62 852-8741-1177</a></div>
+        <div class="c-row"><span class="k">Domisili</span>Cikampek, Karawang — bisa onsite se-Jabodetabek &amp; Karawang</div>
+        <div class="c-row"><span class="k">Jam balas</span>Senin–Sabtu, 08.00–21.00 WIB</div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 maulanaabdurrofik.id</span>
+    <span class="mono" id="ft-note">api: mengecek…</span>
+  </div>
+</footer>
+
+<!-- bottom-nav mobile -->
+<nav class="bnav" aria-label="Navigasi bawah">
+  <div class="bnav-in">
+    <a href="#top" data-s="top"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Home</a>
+    <a href="#projek" data-s="projek"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Projek</a>
+    <a href="#source" data-s="source"><svg viewBox="0 0 24 24"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></svg>Source</a>
+    <a href="#kontak" data-s="kontak"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z"/></svg>Kontak</a>
+  </div>
+</nav>
 
 <script>
-fetch('https://maulanaabdurrofik.id/api/projects').then(r=>r.json()).then(d=>{
-const arr=d.data||[];const g=document.getElementById('grid');
-if(!arr.length){g.innerHTML='<p class=text-slate-400>Belum ada projek.</p>';return;}
-g.innerHTML=arr.slice(0,6).map(p=>`<div class="glass tilt p-6"><h3 class="font-bold">${p.title}</h3><p class="text-sm text-slate-400 mt-2">${(p.description||'').slice(0,110)}</p><div class="flex gap-3 mt-4 text-sm">${p.demo_url?`<a href="${p.demo_url}" class="text-cyan-300 font-semibold">Live →</a>`:''}${p.github_url?`<a href="${p.github_url}" class="text-slate-400">GitHub</a>`:''}</div></div>`).join('');
-}).catch(()=>{document.getElementById('grid').innerHTML='<p class=text-slate-400>Gagal memuat projek.</p>';});
-document.querySelectorAll('.tilt').forEach(el=>{
-el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`rotateX(${-y*8}deg) rotateY(${x*8}deg)`;});
-el.addEventListener('pointerleave',()=>el.style.transform='');
-});
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* reveal on scroll (motion-ui: tanpa loop dekoratif) */
+  var els = document.querySelectorAll('.rv');
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(function (e) { e.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  }
+
+  /* tilt kartu (pointer, skip saat reduced-motion) */
+  if (!reduce && window.matchMedia('(pointer: fine)').matches) {
+    document.addEventListener('pointermove', function (e) {
+      var c = e.target.closest ? e.target.closest('.card') : null;
+      document.querySelectorAll('.card').forEach(function (el) {
+        if (el === c) {
+          var r = el.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+          el.style.transform = 'perspective(900px) rotateX(' + (-y * 7) + 'deg) rotateY(' + (x * 7) + 'deg)';
+        } else if (el.style.transform) { el.style.transform = ''; }
+      });
+    }, { passive: true });
+    document.addEventListener('pointerleave', function () {
+      document.querySelectorAll('.card').forEach(function (el) { el.style.transform = ''; });
+    });
+  }
+
+  /* bottom-nav aktif mengikuti section */
+  var links = document.querySelectorAll('.bnav a');
+  var map = { top: 0, projek: 1, source: 2, kontak: 3 };
+  function setOn(i) { links.forEach(function (a, j) { a.classList.toggle('on', i === j); }); }
+  if ('IntersectionObserver' in window) {
+    var so = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (en.isIntersecting) {
+          var id = en.target.id || 'top';
+          if (id in map) setOn(map[id]);
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    ['top', 'projek', 'source', 'kontak'].forEach(function (id) {
+      var s = document.getElementById(id) || document.querySelector('main');
+      if (s) so.observe(s);
+    });
+  } else { setOn(0); }
+
+  /* fetch API: showcase + statistik REAL */
+  var grid = document.getElementById('grid');
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  fetch('https://maulanaabdurrofik.id/api/projects')
+    .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+    .then(function (d) {
+      var arr = d.data || [];
+      document.getElementById('api-dot').style.color = '#22d3ee';
+      document.getElementById('api-state').textContent = 'api online · ' + arr.length + ' projek';
+      document.getElementById('st-count').textContent = arr.length;
+      var yrs = arr.map(function (p) { return (p.created_at || '').slice(0, 4); }).filter(Boolean);
+      var span = yrs.length ? (Math.min.apply(null, yrs) === Math.max.apply(null, yrs)
+        ? Math.min.apply(null, yrs) : Math.min.apply(null, yrs) + '–' + Math.max.apply(null, yrs)) : '–';
+      document.getElementById('st-years').textContent = span;
+      document.getElementById('ft-note').textContent = 'api: 200 ok · ' + arr.length + ' projek';
+      if (!arr.length) { grid.innerHTML = '<p class="grid-note">Belum ada projek di API.</p>'; return; }
+      grid.innerHTML = arr.slice(0, 6).map(function (p) {
+        var pills = (p.tech_stack || []).slice(0, 3).map(function (t) {
+          return '<span class="pill">' + esc(t) + '</span>'; }).join('');
+        var links2 = (p.demo_url ? '<a class="live" href="' + esc(p.demo_url) + '" target="_blank" rel="noopener">Live →</a>' : '')
+          + (p.github_url ? '<a href="' + esc(p.github_url) + '" target="_blank" rel="noopener">GitHub</a>' : '');
+        var img = p.image ? '<div class="card-img" style="background-image:url(\'https://maulanaabdurrofik.id' + esc(p.image) + '\')"></div>' : '<div class="card-img"></div>';
+        return '<article class="card">' + img + '<div class="card-b"><h3>' + esc(p.title) + '</h3>'
+          + '<div class="pills">' + pills + '</div>'
+          + '<p>' + esc((p.description || '').slice(0, 110)) + '</p></div>'
+          + '<div class="card-f">' + links2 + '</div></article>';
+      }).join('');
+      document.getElementById('grid-note').textContent = '// ' + arr.length + ' projek dari api · menampilkan ' + Math.min(6, arr.length);
+    })
+    .catch(function () {
+      grid.innerHTML = '<p class="grid-note">API tidak terjangkau — coba lagi nanti.</p>';
+      document.getElementById('api-state').textContent = 'api offline';
+      document.getElementById('ft-note').textContent = 'api: offline';
+      document.getElementById('st-count').textContent = '–';
+      document.getElementById('st-years').textContent = '–';
+    });
+})();
 </script>
 </body>
 </html>
